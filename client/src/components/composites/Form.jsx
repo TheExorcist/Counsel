@@ -1,13 +1,20 @@
 import React from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const SubmitButton = (props) => {
     return <Button onClick={ props.submitHandler } type='submit'>Submit</Button>
 }
 
-const CustomForm = (props) => (
-  <Form>
+const CustomForm = (props) => {
+
+  if(props.currentUser.data) {
+    return <Redirect to="/" />
+  }
+
+  return (
+  <Form role="users">
     <Form.Field>
       <label>First Name</label>
       <input placeholder='First Name' />
@@ -19,8 +26,23 @@ const CustomForm = (props) => (
     <Form.Field>
       <Checkbox label='I agree to the Terms and Conditions' />
     </Form.Field>
-    <Route path={ props.match.url + '/submit' } component={SubmitButton}/>
+    <Button onClick={props.createUser} type='submit'> Submit </Button>
   </Form>
-)
+  )
+}
 
-export default CustomForm;
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createUser: (email, name) => dispatch({type: 'USER_SIGNUP', payload: { email, name }})
+  }
+}
+
+const CustomFormConnect = connect(mapStateToProps, mapDispatchToProps)(CustomForm);
+
+export default CustomFormConnect;

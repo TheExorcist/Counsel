@@ -11,15 +11,15 @@ import 'semantic-ui-css/semantic.min.css';
 
 const store = configureStore()
 
-const RootApp = () => {
+const RootApp = (props) => {
   return ( <Provider store={store}>
-            <App />
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
           </Provider> )
 }
 
 
 ReactDOM.render(
-  <BrowserRouter>  
-    <RootApp />
-  </BrowserRouter>  , document.getElementById('root'));
+  <RootApp />  , document.getElementById('root'));
 registerServiceWorker();

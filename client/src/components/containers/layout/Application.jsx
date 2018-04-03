@@ -7,16 +7,14 @@ const FixedMenuLayout = (props) => (
     <Menu fixed='top' inverted>
       <Container>
         <Menu.Item as='a' header>
-          <Image
-            size='mini'
-            src='/logo.png'
-            style={{ marginRight: '1.5em' }}
-          />
-          Project Name
+          <Link to='/'> Counsel </Link>
         </Menu.Item>
-        <Link to='/signup'> Sign Up </Link>
-        <Menu.Item as='a'>Home</Menu.Item>
-
+        {
+          props.currentUser.data ? '':
+          <Menu.Item>
+            <Link to='/signup'> Sign Up </Link>
+          </Menu.Item>
+        }
         <Dropdown item simple text='Dropdown'>
           <Dropdown.Menu>
             <Dropdown.Item>List Item</Dropdown.Item>

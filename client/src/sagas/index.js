@@ -1,5 +1,5 @@
-import rootUserSignUpSaga from './UserSaga';
+import rootUserSaga from './UserSaga';
 
-let rootSaga = [rootUserSignUpSaga];
+let rootSaga = [rootUserSaga];
 
 export default rootSaga;
