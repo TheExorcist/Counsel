@@ -1,21 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux';
+import FixedMenuLayout from './components/containers/layout/Application';
+import { Route } from 'react-router-dom';
+import FormRoute from './components/routes/FormRoute'
+import CustomForm from './components/composites/Form';
 
 class App extends Component {
+
   render() {
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <FixedMenuLayout >
+          <Route exact path="/" />
+          <Route path='/signup' component={CustomForm} />
+        </FixedMenuLayout>
       </div>
-    );
+    )   
   }
 }
 
-export default App;
+
+const mapStateToProps = (state) => {
+  return {
+    currentUser : state.currentUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { 
+    createUser: (email, name) => dispatch({type: 'USER_SIGNUP', payload: {email, name}}) 
+  }
+} 
+
+
+const AppConnect = connect(mapStateToProps, mapDispatchToProps)(App)
+
+const AppRouter = () => {
+  return <App />
+}
+
+export default AppRouter;
